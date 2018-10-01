@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from urllib import urlretrieve
 import os
+import Tkinter, Tkconstants, tkFileDialog
 import time
 
 def videoscrape():
@@ -31,10 +32,10 @@ def videoscrape():
                         return
                     time.sleep(10)
                     driver.get(url)
-                    print(str(j)) 
+                    print(str(j))
 		section = container[0].find_element_by_xpath(".//section[@class='image-section']")
                 link = section.find_element_by_xpath(".//a[@class='search-result-asset-link']")
-                video_url = link.get_attribute("href")                
+                video_url = link.get_attribute("href")
 		driver.get(video_url)
                 while True:
                     wait = WebDriverWait(driver, 30).until(ec.visibility_of_element_located((By.XPATH, "//video[@autoplay='true']")))
@@ -61,6 +62,13 @@ print("GettyScrape v1.1")
 scrape_directory = "C:/Users/[username]/[path]"
 
 while True:
+    while True:
+        print("Please select a directory to save your scraped files.")
+        scrape_directory = tkFileDialog.askdirectory()
+        if scrape_directory == None or scrape_directory == "":
+            print("You must select a directory to save your scraped files.")
+            continue
+        break
     while True:
         searchCount = input("Number of search terms: ")
         if searchCount < 1:

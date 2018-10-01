@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from urllib import urlretrieve
 import os
+import Tkinter, Tkconstants, tkFileDialog
 import time
 
 def videoscrape():
@@ -74,9 +75,16 @@ def imagescrape():
 
 print("ShutterScrape v1.1")
 
-scrape_directory = "C:/Users/[username]/[path]"
+#scrape_directory = "C:/Users/[username]/[path]"
 
 while True:
+    while True:
+        print("Please select a directory to save your scraped files.")
+        scrape_directory = tkFileDialog.askdirectory()
+        if scrape_directory == None or scrape_directory == "":
+            print("You must select a directory to save your scraped files.")
+            continue
+        break
     while True:
         searchMode = raw_input("Search mode ('v' for video or 'i' for image): ")
         if searchMode != "v" and searchMode != "i":
